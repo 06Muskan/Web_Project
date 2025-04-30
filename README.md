@@ -1,6 +1,8 @@
 A full-featured Job Board web platform where Job Seekers can find and apply for jobs, Employers can post and manage job listings, and Admins can oversee the entire system.
 
 🔧 Technologies Used
+     
+      
       - Frontend: HTML, CSS, JavaScript.
 
       - Backend: Node.js, Express.js.
@@ -10,6 +12,8 @@ A full-featured Job Board web platform where Job Seekers can find and apply for 
 📚 PROJECT FEATURES :-
 
 🧑‍💼 Job Seeker
+      
+       
        - Register and login.
 
        - View available jobs.
@@ -17,6 +21,8 @@ A full-featured Job Board web platform where Job Seekers can find and apply for 
        -  Apply to jobs (only once per job).
 
 🏢 Employer
+     
+      
       - Register and login.
 
       - Post new job openings.
@@ -24,11 +30,14 @@ A full-featured Job Board web platform where Job Seekers can find and apply for 
       - View and manage posted jobs.
 
 🛡️ Admin
+     
       - View all posted jobs.
 
       - Delete job postings.
 
 🔐 Authentication
+    
+      
       - Role-based login for Job Seeker, Employer, and Admin.
 
       - Each user type has a separate interface and access.
