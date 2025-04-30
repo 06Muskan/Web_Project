@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Board</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background-color: #4CAF50;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    header nav {
+      margin-top: 10px;
+    }
+    header nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    header nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+    }
+    .search-filters {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+    .search-filters h2 {
+      text-align: center;
+    }
+    .search-filters form {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .search-input, .filter-input {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
+      box-sizing: border-box;
+    }
+    .search-input {
+      width: 300px;
+    }
+    .search-filters button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .search-filters button:hover {
+      background-color: #45a049;
+    }
+    .job-listings {
+      margin-top: 30px;
+    }
+    .job-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .job-item {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .job-item:hover {
+      transform: translateY(-10px);
+    }
+    .job-item h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #4CAF50;
+    }
+    .job-item p {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .job-item button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .job-item button:hover {
+      background-color: #45a049;
+    }
+    .admin-panel {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .admin-panel a {
+      color: #4CAF50;
+      font-weight: bold;
+      font-size: 18px;
+      text-decoration: none;
+    }
+    .admin-panel a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+    @media (max-width: 768px) {
+      .job-list {
+        grid-template-columns: 1fr 1fr;
+      }
+      .search-filters form {
+        flex-direction: column;
+        align-items: center;
+      }
+      .search-input, .filter-input {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+    @media (max-width: 480px) {
+      .job-list {
+        grid-template-columns: 1fr;
+      }
+      .search-filters form {
+        flex-direction: column;
+        align-items: center;
+      }
+      .search-input, .filter-input {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+    .admin-btn {
+      display: inline-block;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .admin-btn i {
+      margin-right: 8px;
+    }
+    .admin-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1>Job Board</h1>
+      <nav>
+        
+        <a href="seeker-login.html">Login</a>
+        <a href="register.html">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="search-filters">
+    <div class="container">
+      <h2>Search for Jobs</h2>
+      <form id="filter-form">
+        <input type="text" id="search" placeholder="Search by job title..." class="search-input">
+        <select id="category" class="filter-input">
+          <option value="">Select Category</option>
+          <option value="IT">IT</option>
+          <option value="Design">Design</option>
+          <option value="Marketing">Marketing</option>
+        </select>
+        <select id="location" class="filter-input">
+          <option value="">Select Location</option>
+          <option value="Gurgaon">Gurgaon</option>
+          <option value="Remote">Remote</option>
+          <option value="Bangalore">Bangalore</option>
+        </select>
+        <button type="submit" id="search-btn">Search</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="job-listings">
+    <div class="container">
+      <h2>Available Job Opportunities</h2>
+      <div id="job-list" class="job-list"></div>
+    </div>
+  </section>
+
+  <div class="admin-panel">
+    <a href="admin.html" class="admin-btn">
+      <i class="fas fa-user-shield"></i> Admin Panel
+    </a>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Job Board. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function fetchJobs(event) {
+      if (event) event.preventDefault();
+
+      const search = document.getElementById('search').value.trim();
+      const category = document.getElementById('category').value;
+      const location = document.getElementById('location').value;
+
+      const url = `http://localhost:3001/api/jobs?search=${encodeURIComponent(search)}&category=${encodeURIComponent(category)}&location=${encodeURIComponent(location)}`;
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          return response.json();
+        })
+        .then(data => {
+          const jobList = document.getElementById('job-list');
+          jobList.innerHTML = '';
+
+          if (data.length === 0) {
+            jobList.innerHTML = '<p>No jobs found.</p>';
+            return;
+          }
+
+          data.forEach(job => {
+            const div = document.createElement('div');
+            div.className = 'job-item';
+            div.innerHTML = `
+              <h3>${job.title}</h3>
+              <p>${job.location} | ${job.category}</p>
+              <button onclick="applyJob(${job.id})">Apply</button>
+            `;
+            jobList.appendChild(div);
+          });
+        })
+        .catch(error => {
+          console.error('Fetch error:', error);
+          document.getElementById('job-list').innerHTML = '<p>Error loading jobs.</p>';
+        });
+    }
+
+    function applyJob(jobId) {
+      alert('You must login first to apply.');
+      window.location.href = 'seeker-login.html';
+    }
+
+    document.getElementById('filter-form').addEventListener('submit', fetchJobs);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchJobs(); 
+    });
+  </script>
+</body>
+</html>
+
+
+
+

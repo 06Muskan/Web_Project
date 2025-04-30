@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saved Jobs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fbfd;
+      color: #333;
+    }
+
+    header {
+      background-color: #4a90e2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      background-color: #fff;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #4a90e2;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #e6f0ff;
+    }
+
+    .container {
+      padding: 30px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #4a90e2;
+    }
+
+    .job-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-left: 5px solid #4a90e2;
+      transition: transform 0.2s;
+      position: relative;
+    }
+
+    .job-card:hover {
+      transform: scale(1.01);
+    }
+
+    .job-card h3 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .job-card p {
+      margin-bottom: 6px;
+      color: #666;
+    }
+
+    .unsave-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #999;
+      transition: color 0.3s;
+    }
+
+    .unsave-btn:hover {
+      color: #e74c3c;
+    }
+
+    .no-jobs {
+      text-align: center;
+      color: #888;
+      font-size: 18px;
+      margin-top: 50px;
+    }
+
+    footer {
+      background-color: #4a90e2;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Saved Jobs</h1>
+  </header>
+
+  <nav>
+    <a href="jobseeker.html">Dashboard</a>
+    <a href="profile.html">Profile</a>
+    <a href="index.html">Logout</a>
+  </nav>
+
+  <div class="container">
+    <h2>Your Saved Jobs</h2>
+    <div id="saved-jobs-container"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 JobBoard | All rights reserved.
+  </footer>
+
+  <script>
+    function loadSavedJobs() {
+      const container = document.getElementById("saved-jobs-container");
+      const savedJobs = JSON.parse(localStorage.getItem("savedJobs")) || [];
+
+      container.innerHTML = "";
+
+      if (savedJobs.length === 0) {
+        container.innerHTML = "<p class='no-jobs'><i class='fas fa-folder-open'></i> No saved jobs found.</p>";
+        return;
+      }
+
+      savedJobs.forEach((job, index) => {
+        const jobCard = document.createElement("div");
+        jobCard.className = "job-card";
+        jobCard.innerHTML = `
+          <h3>${job.title}</h3>
+          <p><strong>Company:</strong> ${job.company}</p>
+          <p><strong>Location:</strong> ${job.location}</p>
+          <button class="unsave-btn" onclick="unsaveJob(${index})" title="Remove from Saved">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        `;
+        container.appendChild(jobCard);
+      });
+    }
+
+    function unsaveJob(index) {
+      let savedJobs = JSON.parse(localStorage.getItem("savedJobs")) || [];
+      savedJobs.splice(index, 1);
+      localStorage.setItem("savedJobs", JSON.stringify(savedJobs));
+      loadSavedJobs(); 
+    }
+
+    window.onload = loadSavedJobs;
+  </script>
+</body>
+</html>
+
+

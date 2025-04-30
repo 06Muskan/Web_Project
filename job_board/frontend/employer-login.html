@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Employer Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+   
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    
+    body::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+  
+    .home-icon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 16px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 10px;
+      border-radius: 50%;
+      text-decoration: none;
+      backdrop-filter: blur(6px);
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+
+    .home-icon:hover {
+      background: rgba(255, 255, 255, 0.3);
+      color: black;
+    }
+
+    
+    .login-container {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .login-container h2 {
+      margin-bottom: 25px;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+   
+    .login-container input {
+      width: 100%;
+      padding: 14px 18px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+      transition: background 0.3s ease;
+    }
+
+    .login-container input::placeholder {
+      color: #ddd;
+    }
+
+    .login-container input:focus {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    
+    .login-container button {
+      width: 100%;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color: white;
+      padding: 14px 0;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.4s, transform 0.2s;
+    }
+
+    .login-container button:hover {
+      background: linear-gradient(135deg, #0072ff, #00c6ff);
+      transform: scale(1.03);
+    }
+
+   
+    .login-container p {
+      margin-top: 22px;
+      font-size: 14px;
+      color: #eee;
+    }
+
+    .login-container a {
+      color: #66d9ff;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    .login-container a:hover {
+      color: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="index.html" class="home-icon" title="Go to Home">
+    <i class="fas fa-home"></i>
+  </a>
+
+  <div class="login-container">
+    <h2>Employer Login</h2>
+    <form id="employer-login-form">
+      <input type="email" id="employer-email" placeholder="Email" required>
+      <input type="password" id="employer-password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="register.html">Register Here</a></p>
+  </div>
+
+  <script>
+    document.getElementById('employer-login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('employer-email').value;
+      const password = document.getElementById('employer-password').value;
+      
+      fetch('http://localhost:3001/api/employer-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Login successful!');
+          window.location.href = 'employer-dashboard.html'; 
+        } else {
+          alert('Invalid Credentials!');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  </script>
+
+</body>
+</html>
+

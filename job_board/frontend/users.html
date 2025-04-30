@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registered Users</title>
+  <style>
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align: center;">Registered Users</h2>
+  <table id="usersTable">
+    <thead>
+      <tr>
+       
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- User rows will be inserted here -->
+    </tbody>
+  </table>
+
+  <script>
+    async function fetchUsers() {
+      try {
+        const res = await fetch('http://localhost:3001/users');
+        const users = await res.json();
+
+        const tbody = document.querySelector('#usersTable tbody');
+        tbody.innerHTML = '';
+
+        users.forEach(user => {
+          const row = `
+            <tr>
+             
+              <td>${user.name}</td>
+              <td>${user.email}</td>
+              <td>${user.role}</td>
+            </tr>
+          `;
+          tbody.innerHTML += row;
+        });
+      } catch (error) {
+        console.error('Failed to fetch users:', error);
+        alert('Could not load users.');
+      }
+    }
+
+    fetchUsers();
+  </script>
+</body>
+</html>
+
